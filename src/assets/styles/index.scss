@@ -1,0 +1,67 @@
+// 重置样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Segoe UI, Arial, Roboto, "PingFang SC", "miui", "Hiragino Sans GB",
+    "Microsoft Yahei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 微信浏览器适配
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background-color: #f7f8fa;
+}
+
+// 禁用长按菜单
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+// 允许输入框选择
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+// 去除点击高亮
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
