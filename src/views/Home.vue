@@ -31,11 +31,13 @@
           ></div>
         </div>
         <h1
-          class="text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+          class="text-2xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 title-kksjt"
         >
           发现你的音乐伙伴
         </h1>
-        <p class="text-gray-500 mb-6 text-base">加入我们，开启你的音乐之旅</p>
+        <p class="text-gray-500 mb-6 text-base text-kksjt">
+          加入我们，开启你的音乐之旅
+        </p>
         <van-button
           type="primary"
           block
@@ -136,27 +138,27 @@
 
     <!-- 底部装饰元素 -->
     <div
-      class="fixed bottom-16 left-0 right-0 pointer-events-none select-none opacity-[0.15] overflow-hidden"
+      class="fixed bottom-0 left-0 right-0 pointer-events-none select-none opacity-[0.15] overflow-hidden h-[70vh]"
     >
-      <div class="relative w-full h-48">
+      <div class="relative w-full h-full">
         <!-- 斜向文字 -->
-        <div class="absolute -left-8 bottom-0 transform -rotate-12">
+        <div class="absolute left-[-10%] bottom-[45%] transform -rotate-12">
           <div
-            class="text-8xl font-bold text-purple-900 font-rock tracking-widest"
+            class="text-[120px] font-bold text-purple-900 font-rock tracking-widest"
           >
             ROCK
           </div>
         </div>
-        <div class="absolute left-1/3 bottom-8 transform rotate-6">
+        <div class="absolute left-[20%] bottom-[25%] transform rotate-6">
           <div
-            class="text-6xl font-bold text-pink-700 font-rock tracking-wider"
+            class="text-[100px] font-bold text-pink-700 font-rock tracking-wider"
           >
             MUSIC
           </div>
         </div>
-        <div class="absolute right-4 bottom-2 transform -rotate-6">
+        <div class="absolute right-[-5%] bottom-[10%] transform -rotate-6">
           <div
-            class="text-7xl font-bold text-indigo-800 font-rock tracking-wider"
+            class="text-[110px] font-bold text-indigo-800 font-rock tracking-wider"
           >
             BAND
           </div>
@@ -164,30 +166,30 @@
 
         <!-- 音符和乐器图标 -->
         <i
-          class="fas fa-music absolute top-4 left-1/4 text-4xl text-purple-400 transform rotate-12"
+          class="fas fa-music absolute top-[20%] left-[30%] text-5xl text-purple-400 transform rotate-12 floating-icon"
         ></i>
         <i
-          class="fas fa-guitar absolute top-8 right-1/3 text-5xl text-pink-400 transform -rotate-12"
+          class="fas fa-guitar absolute top-[35%] right-[25%] text-6xl text-pink-400 transform -rotate-12 floating-icon"
         ></i>
         <i
-          class="fas fa-drum absolute bottom-12 right-1/4 text-4xl text-indigo-400 transform rotate-6"
+          class="fas fa-drum absolute bottom-[30%] right-[40%] text-5xl text-indigo-400 transform rotate-6 floating-icon"
         ></i>
         <i
-          class="fas fa-microphone absolute top-16 left-1/3 text-4xl text-purple-500 transform -rotate-6"
+          class="fas fa-microphone absolute top-[40%] left-[20%] text-5xl text-purple-500 transform -rotate-6 floating-icon"
         ></i>
         <i
-          class="fas fa-headphones absolute bottom-20 left-1/5 text-4xl text-pink-500 transform rotate-12"
+          class="fas fa-headphones absolute bottom-[40%] left-[35%] text-5xl text-pink-500 transform rotate-12 floating-icon"
         ></i>
 
         <!-- 装饰线条 -->
         <div
-          class="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent"
+          class="absolute left-0 right-0 bottom-[20%] h-px bg-gradient-to-r from-transparent via-purple-300 to-transparent"
         ></div>
         <div
-          class="absolute left-1/4 top-0 h-full w-px bg-gradient-to-b from-transparent via-pink-300 to-transparent transform rotate-45"
+          class="absolute left-[30%] top-0 h-full w-px bg-gradient-to-b from-transparent via-pink-300 to-transparent transform rotate-45"
         ></div>
         <div
-          class="absolute right-1/4 top-0 h-full w-px bg-gradient-to-b from-transparent via-indigo-300 to-transparent transform -rotate-45"
+          class="absolute right-[30%] top-0 h-full w-px bg-gradient-to-b from-transparent via-indigo-300 to-transparent transform -rotate-45"
         ></div>
       </div>
     </div>
@@ -212,7 +214,7 @@
           :key="index"
           class="tab-item"
           :class="active === index ? 'text-purple-600' : 'text-gray-500'"
-          @click="active = index"
+          @click="handleTabClick(index)"
         >
           <i :class="item.icon" class="text-lg mb-0.5"></i>
           <span class="text-xs font-medium">{{ item.text }}</span>
@@ -225,19 +227,19 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { showToast, showLoadingToast } from "vant";
+import { showToast, showLoadingToast, showDialog } from "vant";
 import { getWxAuthUrl, wxLogin } from "@/api/wechat";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const route = useRoute();
+const userStore = useUserStore();
 const isLoggedIn = ref(false);
 
 // 底部导航项
 const tabItems = [
-  { icon: "fas fa-home", text: "首页" },
-  { icon: "fas fa-compass", text: "发现" },
-  { icon: "fas fa-users", text: "社区" },
-  { icon: "fas fa-user", text: "我的" },
+  { icon: "fas fa-home", text: "首页", path: "/" },
+  { icon: "fas fa-user", text: "我的", path: "/profile" },
 ];
 
 // 推荐乐队数据
@@ -262,6 +264,12 @@ const recommendBands = [
 // 底部标签栏激活项
 const active = ref(0);
 
+// 处理底部导航点击
+const handleTabClick = (index) => {
+  active.value = index;
+  router.push(tabItems[index].path);
+};
+
 // 显示隐私政策
 const showPrivacyPolicy = () => {
   showDialog({
@@ -274,26 +282,37 @@ const showPrivacyPolicy = () => {
 };
 
 // 处理微信登录
-const handleWxLogin = async () => {
+const handleWxLogin = () => {
   try {
     showLoadingToast({
       message: "正在跳转...",
       forbidClick: true,
     });
-    const { url } = await getWxAuthUrl();
-    window.location.href = url;
+    // 将当前路由路径作为登录后的重定向地址
+    const redirect = route.fullPath;
+    const authUrl = getWxAuthUrl(redirect);
+    window.location.href = authUrl;
   } catch (error) {
+    console.error("获取微信授权链接失败:", error);
     showToast({
-      message: "获取授权链接失败",
+      message: "登录失败，请稍后重试",
       type: "fail",
     });
   }
 };
 
 // 检查登录状态
-const checkLoginStatus = () => {
-  const token = localStorage.getItem("token");
-  isLoggedIn.value = !!token;
+const checkLoginStatus = async () => {
+  try {
+    if (userStore.token) {
+      await userStore.getUserInfoAction();
+      isLoggedIn.value = true;
+    }
+  } catch (error) {
+    console.error("获取用户信息失败:", error);
+    userStore.logoutAction();
+    isLoggedIn.value = false;
+  }
 };
 
 // 处理微信回调
@@ -305,31 +324,40 @@ const handleWxCallback = async () => {
         message: "登录中...",
         forbidClick: true,
       });
-      const { token, userInfo } = await wxLogin(code);
-      localStorage.setItem("token", token);
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
+      // 使用code获取用户信息和token
+      const loginData = await wxLogin(code);
+      userStore.setLoginState(loginData);
       isLoggedIn.value = true;
+
       showToast({
         message: "登录成功",
         type: "success",
       });
-      // 清除URL中的code参数
+
+      // 清除URL中的code参数，但保持在当前页面
       router.replace({
         path: route.path,
         query: {},
       });
     } catch (error) {
+      console.error("微信登录失败:", error);
       showToast({
-        message: "登录失败",
+        message: error.message || "登录失败",
         type: "fail",
       });
+      userStore.logoutAction();
+      isLoggedIn.value = false;
     }
   }
 };
 
-onMounted(() => {
-  checkLoginStatus();
-  handleWxCallback();
+// 在页面加载时检查登录状态和处理回调
+onMounted(async () => {
+  if (route.query.code) {
+    await handleWxCallback();
+  }
+  await checkLoginStatus();
 });
 
 // 创建乐队处理
@@ -414,31 +442,54 @@ const handleFindBand = () => {
 
 .font-rock {
   font-family: "RockFont", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(
+    to bottom,
+    currentColor 0%,
+    rgba(currentColor, 0.7) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0) rotate(var(--rotation));
+    transform: translateY(0) rotate(var(--rotation, 0));
   }
   50% {
-    transform: translateY(-10px) rotate(var(--rotation));
+    transform: translateY(-15px) rotate(var(--rotation, 0));
   }
+}
+
+.floating-icon {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: calc(var(--delay, 0) * 1s);
 }
 
 .fas.fa-music {
+  --delay: 0;
   --rotation: 12deg;
-  animation: float 3s ease-in-out infinite;
 }
 
 .fas.fa-guitar {
+  --delay: 0.5;
   --rotation: -12deg;
-  animation: float 4s ease-in-out infinite;
 }
 
 .fas.fa-drum {
+  --delay: 1;
   --rotation: 6deg;
-  animation: float 3.5s ease-in-out infinite;
+}
+
+.fas.fa-microphone {
+  --delay: 1.5;
+  --rotation: -6deg;
+}
+
+.fas.fa-headphones {
+  --delay: 2;
+  --rotation: 12deg;
 }
 
 .overflow-hidden {

@@ -1,11 +1,11 @@
-import { Button, NavBar, Swipe, SwipeItem, Tabbar, TabbarItem, Loading } from "vant";
+import "vant/lib/index.css"; // Vant 基础样式
+import { Button, Toast, Dialog, NavBar, Cell, CellGroup } from "vant";
 
 export function setupVant(app) {
   app.use(Button);
+  app.use(Toast);
+  app.use(Dialog);
   app.use(NavBar);
-  app.use(Swipe);
-  app.use(SwipeItem);
-  app.use(Tabbar);
-  app.use(TabbarItem);
-  app.use(Loading);
+  app.use(Cell);
+  app.use(CellGroup);
 }

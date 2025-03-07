@@ -1,0 +1,130 @@
+/* Vant 组件样式覆盖 */
+
+/* Dialog 弹窗样式 */
+:root {
+  --van-dialog-border-radius: 1rem;
+  --van-dialog-background: #ffffff;
+  --van-dialog-width: 320px;
+  --van-dialog-header-padding-top: 24px;
+  --van-dialog-header-font-weight: 600;
+  --van-dialog-message-padding: 24px;
+  --van-dialog-message-font-size: 14px;
+  --van-dialog-message-line-height: 1.5;
+  --van-dialog-confirm-button-text-color: #ffffff;
+  --van-dialog-confirm-button-background: linear-gradient(
+    to right,
+    #7c3aed,
+    #ec4899
+  );
+  --van-dialog-cancel-button-text-color: #6b7280;
+  --van-button-border-radius: 0.75rem;
+  --van-dialog-theme-color: #7c3aed;
+}
+
+/* Dialog 自定义样式 */
+.van-dialog {
+  overflow: hidden !important;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
+.van-dialog__header {
+  color: #1f2937 !important;
+  font-size: 1.125rem !important;
+  padding: 24px 24px 0 !important;
+  text-align: center !important;
+}
+
+.van-dialog__message {
+  color: #4b5563 !important;
+  padding: 24px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.van-dialog__footer {
+  padding: 16px !important;
+  display: flex !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+/* 弹窗按钮样式 */
+.van-dialog__footer .van-button {
+  flex: 1 !important;
+  margin: 0 8px !important;
+  height: 40px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 0.75rem !important;
+}
+
+.van-dialog__footer .van-button.van-button--default {
+  border: 1px solid #e5e7eb !important;
+  color: #6b7280 !important;
+  background-color: #ffffff !important;
+}
+
+.van-dialog__footer .van-button.van-button--primary {
+  border: none !important;
+  color: #ffffff !important;
+  background: linear-gradient(to right, #7c3aed, #ec4899) !important;
+  background-image: linear-gradient(to right, #7c3aed, #ec4899) !important;
+}
+
+/* 确保渐变背景生效 */
+.van-dialog__footer .van-button.van-button--primary::before {
+  display: none !important;
+}
+
+.van-dialog__footer .van-button.van-button--primary .van-button__text {
+  color: #ffffff !important;
+}
+
+/* Toast 样式 */
+:root {
+  --van-toast-border-radius: 1rem;
+  --van-toast-background: rgba(0, 0, 0, 0.8);
+  --van-toast-icon-size: 24px;
+  --van-toast-text-color: #ffffff;
+  --van-toast-font-size: 14px;
+  --van-toast-loading-icon-color: #ffffff;
+}
+
+.van-toast {
+  padding: 12px 20px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Loading 样式 */
+:root {
+  --van-loading-spinner-color: #7c3aed;
+  --van-loading-text-color: #6b7280;
+}
+
+/* Notify 样式 */
+:root {
+  --van-notify-border-radius: 1rem;
+  --van-notify-padding: 12px 20px;
+  --van-notify-font-size: 14px;
+}
+
+.van-notify--success {
+  background: linear-gradient(to right, #059669, #10b981) !important;
+}
+
+.van-notify--danger {
+  background: linear-gradient(to right, #dc2626, #ef4444) !important;
+}
+
+.van-notify--warning {
+  background: linear-gradient(to right, #d97706, #f59e0b) !important;
+}
+
+.van-notify--primary {
+  background: linear-gradient(to right, #7c3aed, #ec4899) !important;
+}

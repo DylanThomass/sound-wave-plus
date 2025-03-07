@@ -1,4 +1,4 @@
-import request from "@/config/request";
+import request from "@/utils/request";
 
 // 封装 GET 请求
 export function get(url, params) {

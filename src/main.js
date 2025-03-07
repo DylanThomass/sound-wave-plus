@@ -7,6 +7,8 @@ import { setupVant } from "./plugins/vant";
 import "./assets/styles/index.scss";
 import "./assets/styles/tailwind.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./assets/styles/fonts.css";
+import "./assets/styles/vant-custom.css"; // 引入自定义的 Vant 样式
 
 // 开发环境下引入vconsole
 if (process.env.NODE_ENV === "development") {

@@ -11,11 +11,11 @@ module.exports = defineConfig({
     port: 3000,
     open: true,
     proxy: {
-      "^/api": {
+      "^/base": {
         target: process.env.VUE_APP_API_URL || "http://localhost:8080",
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "",
+          "^/base": "",
         },
       },
     },

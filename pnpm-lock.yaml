@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@chinese-fonts/kksjt':
+    specifier: ^2.0.1
+    version: 2.0.1
   '@fortawesome/fontawesome-free':
     specifier: ^6.7.2
     version: 6.7.2
@@ -1230,6 +1233,10 @@ packages:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  /@chinese-fonts/kksjt@2.0.1:
+    resolution: {integrity: sha512-XjM1Tcl1H1ZbIxSYqu3nfLGg7Wjt1ZmQDCZODkBvh1G1klccNY9mip3+gM8QanUGoMhANLx4Wj/lZAeyFVGt5w==}
+    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}

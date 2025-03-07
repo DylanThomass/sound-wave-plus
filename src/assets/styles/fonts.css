@@ -1,0 +1,22 @@
+/* 导入快看世界体 */
+@import "@chinese-fonts/kksjt/dist/kuaikanshijieti20231213/result.css";
+
+/* 快看世界体 */
+.font-kksjt {
+  font-family: 快看世界体, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 标题字体 */
+.title-kksjt {
+  font-family: 快看世界体, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* 正文字体 */
+.text-kksjt {
+  font-family: 快看世界体, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-seif;
+  font-weight: 400;
+}

@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { login, getUserInfo, logout } from "@/api/user";
 
 export const useUserStore = defineStore(
   "user",
@@ -8,48 +7,74 @@ export const useUserStore = defineStore(
     const token = ref(localStorage.getItem("token") || "");
     const userInfo = ref(null);
 
-    // 登录
-    const loginAction = async (loginData) => {
-      const res = await login(loginData);
-      token.value = res.token;
-      localStorage.setItem("token", res.token);
-      return res;
+    // 设置登录状态
+    const setLoginState = (wxUserInfo) => {
+      if (!wxUserInfo || !wxUserInfo.openid) {
+        throw new Error("登录数据不完整");
+      }
+
+      // 使用 openid 作为 token
+      token.value = wxUserInfo.openid;
+      localStorage.setItem("token", token.value);
+
+      // 设置用户信息，处理可能的空值
+      userInfo.value = {
+        nickname: wxUserInfo.nickname || "未设置昵称",
+        headimgurl: wxUserInfo.headimgurl || "",
+        sex: Number(wxUserInfo.sex) || 0,
+        province: wxUserInfo.province || "",
+        city: wxUserInfo.city || "",
+        country: wxUserInfo.country || "",
+        language: wxUserInfo.language || "",
+        openid: wxUserInfo.openid,
+        privilege: wxUserInfo.privilege || [],
+      };
+
+      localStorage.setItem("userInfo", JSON.stringify(userInfo.value));
     };
 
     // 获取用户信息
     const getUserInfoAction = async () => {
-      const res = await getUserInfo();
-      userInfo.value = res;
-      return res;
-    };
-
-    // 退出登录
-    const logoutAction = async () => {
-      await logout();
-      token.value = "";
-      userInfo.value = null;
-      localStorage.removeItem("token");
+      const storedUserInfo = localStorage.getItem("userInfo");
+      if (storedUserInfo) {
+        userInfo.value = JSON.parse(storedUserInfo);
+      }
+      return userInfo.value;
     };
 
     // 更新用户信息
-    const updateUserInfo = (info) => {
-      userInfo.value = { ...userInfo.value, ...info };
+    const updateUserInfo = (newUserInfo) => {
+      if (userInfo.value) {
+        userInfo.value = {
+          ...userInfo.value,
+          ...newUserInfo,
+        };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo.value));
+      }
+    };
+
+    // 退出登录
+    const logoutAction = () => {
+      token.value = "";
+      userInfo.value = null;
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
     };
 
     return {
       token,
       userInfo,
-      loginAction,
+      setLoginState,
       getUserInfoAction,
-      logoutAction,
       updateUserInfo,
+      logoutAction,
     };
   },
   {
     persist: {
-      key: "user-store", // 存储的key
-      storage: localStorage, // 存储方式，默认sessionStorage
-      paths: ["token"], // 指定要持久化的字段，这里只持久化token
+      key: "user-store",
+      storage: localStorage,
+      paths: ["token", "userInfo"],
     },
   }
 );
