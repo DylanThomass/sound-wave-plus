@@ -9,25 +9,17 @@ export const useUserStore = defineStore(
 
     // 设置登录状态
     const setLoginState = (wxUserInfo) => {
-      if (!wxUserInfo || !wxUserInfo.openid) {
-        throw new Error("登录数据不完整");
-      }
+      // if (!wxUserInfo || !wxUserInfo.openid) {
+      //   throw new Error("登录数据不完整");
+      // }
 
       // 使用 openid 作为 token
-      token.value = wxUserInfo.openid;
+      token.value = wxUserInfo.token;
       localStorage.setItem("token", token.value);
 
       // 设置用户信息，处理可能的空值
       userInfo.value = {
-        nickname: wxUserInfo.nickname || "未设置昵称",
-        headimgurl: wxUserInfo.headimgurl || "",
-        sex: Number(wxUserInfo.sex) || 0,
-        province: wxUserInfo.province || "",
-        city: wxUserInfo.city || "",
-        country: wxUserInfo.country || "",
-        language: wxUserInfo.language || "",
-        openid: wxUserInfo.openid,
-        privilege: wxUserInfo.privilege || [],
+        ...wxUserInfo.userInfo,
       };
 
       localStorage.setItem("userInfo", JSON.stringify(userInfo.value));
